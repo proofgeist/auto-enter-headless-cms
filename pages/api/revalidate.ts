@@ -8,8 +8,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ message: 'Invalid token' })
   }
 
-
   const path = req.query.path as string
+  console.log('revalidating', path)
 
   try {
     // this should be the actual path not a rewritten path
