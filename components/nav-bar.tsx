@@ -25,7 +25,7 @@ const NavLink = ({ children, href }: { children: ReactNode, href: string }) => {
       rounded={'md'}
       _hover={{
         textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
+        bg: useColorModeValue('brand.50', 'gray.700'),
       }}
       href={href}>
       {children}

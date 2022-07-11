@@ -2,7 +2,7 @@ import { GetStaticPropsContext } from "next"
 import type { NextPage } from 'next'
 import { getLayout } from "../layouts/main-layout";
 import { getSiteSettings } from "../server/apis/site-settings";
-import { NextPageWithLayout } from "../utils/next-extended";
+import Hero from "../components/hero";
 
 export const getStaticProps = async (ctx: GetStaticPropsContext) => {
 
@@ -23,14 +23,14 @@ type TSiteSettings = {
   LogoSlug: string;
 }
 
-const Home = ({ siteSettings }: { siteSettings: TSiteSettings }) => {
+const HomePage = ({ siteSettings }: { siteSettings: TSiteSettings }) => {
   return (
     <div >
-      ok
+      <Hero />
     </div>
   )
 }
 
-Home.getLayout = getLayout
+HomePage.getLayout = getLayout
 
-export default Home
+export default HomePage

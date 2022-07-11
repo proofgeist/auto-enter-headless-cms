@@ -24,7 +24,7 @@ export default function BlogLayout({ children, siteSettings, preview, recentBlog
         <Flex  >
           <Box flex={3}  >{children}</Box>
           <Box ml={4} flex={1}>
-            <Box mt={"24"} ml={4} height="100%" borderLeft="1px solid" borderLeftColor="purple.100" pl={4} flex={1}>
+            <Box mt={"24"} ml={4} height="100%" borderLeft="1px solid" borderLeftColor="brand.100" pl={4} flex={1}>
               <Heading as="h2" size="md">Recent Posts</Heading>
               <RecentPosts />
             </Box>

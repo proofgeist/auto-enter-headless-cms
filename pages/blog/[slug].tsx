@@ -3,12 +3,13 @@ import NextImage from "next/future/image"
 import { PHASE_PRODUCTION_BUILD } from 'next/constants'
 import { getPostBySlug, getPostPreviewBySlug, getAllPosts, postCache } from "../../server/apis/posts"
 import { getSiteSettings } from "../../server/apis/site-settings"
-import { Heading } from "@chakra-ui/react"
+import { Heading, Spacer } from "@chakra-ui/react"
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import mdxComponents from "../../components/mdx-components"
 import { getLayout } from "../../layouts/blog-layout"
 import { TTransformPost } from "../../utils/transform-post"
+import { RoundedNextImage, BlobbedImage } from "../../components/next-image-styled";
 
 // BLOG pages are built into static pages during the build process
 // First, we get all the posts paths in getStaticPaths
@@ -95,7 +96,8 @@ export default function BlogPage({ Title, siteSettings, mdxSource, FeatureImageU
   return (
     < >
       <Heading mb={12} as="h1" size="2xl" >{Title}</Heading>
-      <NextImage priority={true} width="1280" height="630" src={FeatureImageUrl} />
+      <BlobbedImage priority={true} width={1280} height={630} src={FeatureImageUrl} />
+      <Spacer height={4}></Spacer>
       <MDXRemote {...mdxSource} components={mdxComponents} />
     </>
   )

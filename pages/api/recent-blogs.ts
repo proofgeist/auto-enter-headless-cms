@@ -5,7 +5,8 @@ import { getAllPosts } from "../../server/apis/posts"
 
 
 //this route will cache the data for 5 minutes
-// and then serve stale while updating for 15 minutes
+// and then serve stale while updating for 60 minutes
+// if the server is down, this data will stay in cache for 60 minutes
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<TTransformPost[]>
@@ -14,7 +15,7 @@ export default async function handler(
   const recentBlogs = await getAllPosts()
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=900'
+    'public, s-maxage=300, stale-while-revalidate=3600'
   )
   res.status(200).json(recentBlogs)
 }

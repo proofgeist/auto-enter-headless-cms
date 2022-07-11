@@ -9,6 +9,8 @@ import {
   QueryClientProvider,
 } from 'react-query'
 
+import { theme } from "../theme"
+
 
 
 export type NextPageWithLayout<P = {}> = NextPage<P> & {
@@ -28,7 +30,7 @@ const defaultLayout = (page: NextPage) => page;
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || defaultLayout;
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <Container maxWidth={"1280px"}>
           {getLayout(<Component {...pageProps} />, pageProps)}
