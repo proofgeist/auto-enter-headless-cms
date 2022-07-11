@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+
 import type { AppProps } from 'next/app'
 import { NextPage } from "next";
 import { ChakraProvider, Box, Container } from '@chakra-ui/react'

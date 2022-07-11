@@ -8,6 +8,7 @@ export function transformPost(post: TPosts) {
     Body: post.PublishedBody,
     Title: post.PublishedTitle,
     FeatureImageUrl: post.FeatureImageUrl,
+    Excerpt: post.Excerpt,
   }
 }
 
@@ -16,5 +17,6 @@ export const zTransformPost = z.object({
   Body: z.string(),
   Title: z.string(),
   FeatureImageUrl: z.string(),
+  Excerpt: z.string(),
 })
 export type TTransformPost = z.infer<typeof zTransformPost>

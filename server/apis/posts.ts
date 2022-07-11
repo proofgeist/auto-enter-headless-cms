@@ -56,7 +56,7 @@ export const postCache = {
   getAll: getAllCachedPosts,
   getBySlug: getACachedPost,
   setAll: async (posts: TTransformPost[]) => {
-    console.log('setting cache')
+
     return await fs.writeFile(
       path.join(process.cwd(), 'posts.db'),
       JSON.stringify(posts)

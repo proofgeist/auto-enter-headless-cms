@@ -1,10 +1,7 @@
 
-import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { ReactNode, ReactElement } from "react";
 import { TSiteSettings } from "../server/apis/fm/clients/SiteSettings";
-
-
-
 import NavBar from '../components/nav-bar'
 import NextChakraLink from "../components/next-chakra-link";
 import { TTransformPost } from "../utils/transform-post";
