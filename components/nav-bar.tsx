@@ -15,6 +15,8 @@ import NextChakraLink from "./next-chakra-link"
 import NextClearPreviewButton from './next-preview-button';
 const Links = [{ label: "Blog", href: "/blog" }, { label: "Join", href: "/join" }];
 
+
+
 const NavLink = ({ children, href }: { children: ReactNode, href: string }) => {
   return (
     <NextChakraLink
@@ -33,6 +35,7 @@ const NavLink = ({ children, href }: { children: ReactNode, href: string }) => {
 
 export default function Simple({ logo, preview }: { logo: string, preview: boolean }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
 
   return (
     <>

@@ -1,9 +1,11 @@
 import { client as Posts } from "../apis/fm/clients/Posts";
 import { client as PostPreviews } from "../apis/fm/clients/PostPreviews";
 import { promises as fs } from 'fs'
-import { TPosts as TPost } from "./fm/clients/Posts"
+
 import path from 'path'
-import { z } from 'zod'
+
+import { transformPost, TTransformPost } from "../../utils/transform-post";
+
 
 export async function getPostBySlug(slug: string) {
   const post = await Posts.findFirst({ query: { Slug: slug } });
@@ -25,22 +27,7 @@ export async function getAllPosts() {
   return posts
 }
 
-function transformPost(post: TPost) {
-  return {
-    Slug: post.Slug,
-    Body: post.PublishedBody,
-    Title: post.PublishedTitle,
-    FeatureImageUrl: post.FeatureImageUrl,
-  }
-}
 
-const zTransformPost = z.object({
-  Slug: z.string(),
-  Body: z.string(),
-  Title: z.string(),
-  FeatureImageUrl: z.string(),
-})
-export type TTransformPost = z.infer<typeof zTransformPost>
 
 const getAllCachedPosts = async () => {
   try {
