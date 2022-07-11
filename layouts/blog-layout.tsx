@@ -6,6 +6,7 @@ import NavBar from '../components/nav-bar'
 import NextChakraLink from "../components/next-chakra-link";
 import { TTransformPost } from "../utils/transform-post";
 import { useRecentPosts } from "../utils/client-side-api";
+import PageTransition from "../components/page-transition";
 
 type Props = {
   children: ReactNode;
@@ -19,18 +20,18 @@ export default function BlogLayout({ children, siteSettings, preview, recentBlog
   return (
     <Box>
       <NavBar logo={siteSettings?.LogoSlug || ""} preview={preview} />
-      <Flex >
-        <Box flex={3}  >{children}</Box>
-        <Box ml={4} flex={1}>
-          <Box mt={"24"} ml={4} height="100%" borderLeft="1px solid" borderLeftColor="purple.100" pl={4} flex={1}>
-            <Heading as="h2" size="md">Recent Posts</Heading>
-
-            <RecentPosts />
-
-
+      <PageTransition>
+        <Flex  >
+          <Box flex={3}  >{children}</Box>
+          <Box ml={4} flex={1}>
+            <Box mt={"24"} ml={4} height="100%" borderLeft="1px solid" borderLeftColor="purple.100" pl={4} flex={1}>
+              <Heading as="h2" size="md">Recent Posts</Heading>
+              <RecentPosts />
+            </Box>
           </Box>
-        </Box>
-      </Flex>
+        </Flex>
+      </PageTransition>
+
     </Box>
   )
 }

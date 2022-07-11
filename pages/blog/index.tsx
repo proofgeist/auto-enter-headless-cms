@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import { getLayout } from "../../layouts/main-layout";
 import { getSiteSettings } from "../../server/apis/site-settings";
 import RecentBlogsGrid from "../../components/recent-blogs-grid";
+import { Heading, Spacer } from "@chakra-ui/react";
 
 export const getStaticProps = async (ctx: GetStaticPropsContext) => {
 
@@ -26,6 +27,8 @@ type TSiteSettings = {
 const BlogsIndexPage = ({ siteSettings }: { siteSettings: TSiteSettings }) => {
   return (
     <div >
+      <Heading as="h1" size={"2xl"}>Recent Blog Posts</Heading>
+      <Spacer h={4} />
       <RecentBlogsGrid />
     </div>
   )
