@@ -19,7 +19,7 @@ export async function getPreviewPostBySlug(slug: string) {
 
 
 export async function getAllPosts() {
-  const result = await Post.find({ query: { Type: "public" } });
+  const result = await Post.find({ query: { Type: "public" }, sort: [{ fieldName: "CreationTimestamp", sortOrder: "descend" }] });
   const posts = result.data.map(post => {
     return post.fieldData
   })

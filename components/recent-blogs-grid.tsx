@@ -16,12 +16,12 @@ export default function RecentBlogsGrid() {
 
   if (recentPosts.isError) return <Box>Error</Box>
 
-  if (recentPosts.data.length === 0) return <Box>No posts</Box>
+  if (recentPosts.data?.length === 0) return <Box>No posts</Box>
 
 
 
   return <SimpleGrid columns={[1, 1, 2, 3, 3]} spacing={10}>
-    {recentPosts.data.map((blog: any) => {
+    {recentPosts.data?.map((blog: any) => {
       return <BlogCard key={blog.Slug} {...blog} />
     })}
   </SimpleGrid>

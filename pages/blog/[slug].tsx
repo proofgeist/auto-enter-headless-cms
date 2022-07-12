@@ -2,13 +2,16 @@ import { GetStaticPropsContext } from "next"
 import { PHASE_PRODUCTION_BUILD } from 'next/constants'
 import { getPublicPostBySlug, getPreviewPostBySlug, getAllPosts, postCache } from "../../server/apis/posts"
 import { getSiteSettings } from "../../server/apis/site-settings"
-import { Heading, Spacer } from "@chakra-ui/react"
+import { Heading, HStack, Spacer, Text } from "@chakra-ui/react"
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import mdxComponents from "../../components/mdx-components"
 import { getLayout } from "../../layouts/blog-layout"
 import { TPost } from "../../server/apis/fm/clients/Post"
-import { RoundedNextImage, BlobbedImage } from "../../components/next-image-styled";
+import { AvatarNextImage, BlobbedImage, RoundedNextImage } from "../../components/next-image-styled";
+import { MDXRemoteSerializeResult } from "next-mdx-remote"
+import { TSiteSettings } from "../../server/apis/fm/clients/SiteSettings"
+
 
 // BLOG pages are built into static pages during the build process
 // First, we get all the posts paths in getStaticPaths
@@ -43,7 +46,7 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   const preview = ctx.preview ? true : false
   let post: TPost | undefined
   if (preview) {
-    post = await getPreviewPostBySlug(slug) // preview isn't ready.
+    post = await getPreviewPostBySlug(slug)
   } else {
     // if we aren't building so don't use the cache
     if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) post = await postCache.getBySlug(slug);
@@ -79,24 +82,36 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   // we need this because we have a list of blogs in each blog page and that will need to revalidate
   // when new blogs are added
   return {
-    props: { preview, ...post, siteSettings, mdxSource, recentBlogs },
+    props: { preview, post, siteSettings, mdxSource, recentBlogs },
     revalidate: 60 * 30 // 30 minutes
   }
 
 }
 
 
+type PageProps = {
+  mdxSource: MDXRemoteSerializeResult,
+  siteSettings: TSiteSettings,
+  post: TPost,
+}
+
+
 //PageComponent
-export default function BlogPage({ Title, siteSettings, mdxSource, FeatureImageUrl }: any) {
+export default function BlogPage({
+  post: { Title, FeatureImageUrl, AuthorName, AuthorAvatarUrl, ModificationTimestamp },
+  siteSettings, mdxSource,
+}: PageProps) {
 
   if (!siteSettings) return null // nothing to render yet
 
 
   return (
     < >
-      <Heading mb={12} as="h1" size="2xl" >{Title}</Heading>
+      <Heading mb={0} as="h1" size="2xl" >{Title}</Heading>
+      <Attribution AuthorAvatarUrl={AuthorAvatarUrl} AuthorName={AuthorName} ModificationTimestamp={ModificationTimestamp} />
+      <Spacer height={8}></Spacer>
       <BlobbedImage priority={true} width={1280} height={630} src={FeatureImageUrl} />
-      <Spacer height={4}></Spacer>
+      <Spacer height={6}></Spacer>
       <MDXRemote {...mdxSource} components={mdxComponents} />
     </>
   )
@@ -104,3 +119,18 @@ export default function BlogPage({ Title, siteSettings, mdxSource, FeatureImageU
 
 //asign the layout to the page
 BlogPage.getLayout = getLayout
+
+type AttributionProps = {
+  AuthorName: TPost["AuthorName"],
+  AuthorAvatarUrl: TPost["AuthorAvatarUrl"],
+  ModificationTimestamp: TPost["ModificationTimestamp"],
+}
+
+function Attribution({ AuthorAvatarUrl, AuthorName, ModificationTimestamp }: AttributionProps) {
+
+  return <HStack>
+    <AvatarNextImage src={AuthorAvatarUrl} />
+    <Text color={"gray.500"}>{AuthorName} - {ModificationTimestamp}</Text>
+  </HStack>
+
+}

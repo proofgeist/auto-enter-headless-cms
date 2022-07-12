@@ -3,11 +3,23 @@ import { Box, Icon, IconProps, Flex, useColorModeValue } from "@chakra-ui/react"
 import NextImage, { ImageProps } from "next/future/image";
 
 
+export function AvatarNextImage({ width = 40, height = 40, src = "", priority = false }: ImageProps) {
+  if (src === "") {
+    return null
+  }
+  return <Box
+    width={'40px'}
+    height={'40px'}
+    position={'relative'}
+    rounded={'full'}
+    overflow={'hidden'}>
+    <NextImage priority={priority} width={40} height={40} src={src}></NextImage>
+  </Box>
+}
 
 
 
-
-export function RoundedNextImage({ width = 1200, height = 630, src = "", priority = false }:ImageProps) {
+export function RoundedNextImage({ width = 1200, height = 630, src = "", priority = false }: ImageProps) {
   if (src === "") {
     return null
   }

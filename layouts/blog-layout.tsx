@@ -1,5 +1,5 @@
 
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Spacer } from "@chakra-ui/react";
 import { ReactNode, ReactElement } from "react";
 import { TSiteSettings } from "../server/apis/fm/clients/SiteSettings";
 import NavBar from '../components/nav-bar'
@@ -24,8 +24,8 @@ export default function BlogLayout({ children, siteSettings, preview, recentBlog
         <Flex  >
           <Box flex={3}  >{children}</Box>
           <Box ml={4} flex={1}>
-            <Box mt={"24"} ml={4} height="100%" borderLeft="1px solid" borderLeftColor="brand.100" pl={4} flex={1}>
-              <Heading as="h2" size="md">Recent Posts</Heading>
+            <Box mt={4} ml={4} height="100%" borderLeft="1px solid" borderLeftColor="brand.100" pl={4} flex={1}>
+              <Heading as="h2" size="lg">Recent Posts</Heading>
               <RecentPosts />
             </Box>
           </Box>
@@ -34,6 +34,14 @@ export default function BlogLayout({ children, siteSettings, preview, recentBlog
 
     </Box>
   )
+}
+
+
+
+
+export const getLayout = (page: ReactElement, pageProps: any) => {
+
+  return <BlogLayout {...pageProps}> {page}</BlogLayout>
 }
 
 // get recent posts using a client side query
@@ -46,14 +54,18 @@ function RecentPosts() {
 
   return <Box> {recentPostsQuery.data.map((blog: any) => {
     return <Box my={2} key={blog.Slug} >
-      <NextChakraLink href={blog.Slug}>{blog.Title}</NextChakraLink>
+      <RecentPost {...blog} />
     </Box>
   })}</Box>
 
 }
 
 
-export const getLayout = (page: ReactElement, pageProps: any) => {
 
-  return <BlogLayout {...pageProps}> {page}</BlogLayout>
+function RecentPost(blog: TPost) {
+  return <Box>
+    <Heading m={0} p={0} as="h3" fontWeight={"medium"} color={"brand.800"} size="sm"><NextChakraLink href={blog.Slug}>{blog.Title}</NextChakraLink></Heading>
+    <Text fontSize={"sm"}>{blog.AuthorName ? blog.AuthorName : "JamClub"} - {blog.CreationTimestamp}</Text>
+    <Spacer h={4} />
+  </Box>
 }
