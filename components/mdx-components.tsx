@@ -1,4 +1,4 @@
-import { Heading, Text, UnorderedList, ListItem, OrderedList, Divider } from "@chakra-ui/react"
+import { Heading, Text, UnorderedList, ListItem, OrderedList, Divider, Box } from "@chakra-ui/react"
 import NextImage from "next/future/image"
 import NextChakraLink from "./next-chakra-link"
 
@@ -15,7 +15,7 @@ const components = {
   blockquote: (props: any) => <Text fontSize={"2xl"} fontStyle="italic" color="brand" borderLeft={"1px solid brand"} padding={2} paddingLeft={4} margin="10" as="blockquote" {...props} />,
   strong: (props: any) => <Text variant={""} fontWeight="bold" color={"brand"} as="strong" {...props} />,
   img: (props: any) => {
-    return < NextImage width="1202" height="1000" {...props} />
+    return <Box py={8}>< NextImage width="1202" height="1000" {...props} /></Box>
   },
   p: (props: any) => <Text {...props} />,
   ul: (props: any) => <UnorderedList  {...props} />,
