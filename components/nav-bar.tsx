@@ -13,7 +13,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import NextImage from "next/future/image"
 import NextChakraLink from "./next-chakra-link"
 import NextClearPreviewButton from './next-preview-button';
-const Links = [{ label: "Blog", href: "/blog" }, { label: "Join", href: "/join" }];
+const Links = [{ label: "Blog", href: "/blog" }, { label: "Pricing", href: "/pricing" }];
 
 
 

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getPostBySlug } from '../../server/apis/posts'
+import { getPreviewPostBySlug } from '../../server/apis/posts'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const slug = req.query.slug as string
   // Fetch the headless CMS to check if the provided `slug` exists
   // getPostBySlug would implement the required fetching logic to the headless CMS
-  const post = await getPostBySlug(slug)
+  const post = await getPreviewPostBySlug(slug)
 
   // If the slug doesn't exist prevent preview mode from being enabled
   if (!post) {

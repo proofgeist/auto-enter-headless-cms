@@ -1,27 +1,27 @@
-import { client as Posts } from "../apis/fm/clients/Posts";
-import { client as PostPreviews } from "../apis/fm/clients/PostPreviews";
+import { client as Post, TPost } from "../apis/fm/clients/Post";
 import { promises as fs } from 'fs'
 
 import path from 'path'
 
-import { transformPost, TTransformPost } from "../../utils/transform-post";
 
 
-export async function getPostBySlug(slug: string) {
-  const post = await Posts.findFirst({ query: { Slug: slug } });
-  return transformPost(post.data.fieldData);
+export async function getPublicPostBySlug(slug: string) {
+  const post = await Post.findFirst({ query: { Slug: slug, Type: "public" } });
+  return post.data.fieldData;
 }
 
-export async function getPostPreviewBySlug(slug: string) {
-  const post = await PostPreviews.findFirst({ query: { Slug: slug } });
-  return transformPost(post.data.fieldData);
-
+export async function getPreviewPostBySlug(slug: string) {
+  const post = await Post.findFirst({ query: { Slug: slug, Type: "draft" } });
+  return post.data.fieldData;
 }
+
+
+
 
 export async function getAllPosts() {
-  const result = await Posts.list()
+  const result = await Post.find({ query: { Type: "public" } });
   const posts = result.data.map(post => {
-    return transformPost(post.fieldData)
+    return post.fieldData
   })
 
   return posts
@@ -32,10 +32,10 @@ export async function getAllPosts() {
 const getAllCachedPosts = async () => {
   try {
     const data = await fs.readFile(path.join(process.cwd(), 'posts.db'))
-    const Posts: TTransformPost[] = JSON.parse(data as unknown as string)
+    const Posts: TPost[] = JSON.parse(data as unknown as string)
     return Posts
   } catch (error) {
-    return [] as TTransformPost[]
+    return [] as TPost[]
   }
 
 }
@@ -55,7 +55,7 @@ const getACachedPost = async (Slug: string) => {
 export const postCache = {
   getAll: getAllCachedPosts,
   getBySlug: getACachedPost,
-  setAll: async (posts: TTransformPost[]) => {
+  setAll: async (posts: TPost[]) => {
 
     return await fs.writeFile(
       path.join(process.cwd(), 'posts.db'),

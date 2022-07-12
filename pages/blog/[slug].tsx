@@ -1,14 +1,13 @@
 import { GetStaticPropsContext } from "next"
-import NextImage from "next/future/image"
 import { PHASE_PRODUCTION_BUILD } from 'next/constants'
-import { getPostBySlug, getPostPreviewBySlug, getAllPosts, postCache } from "../../server/apis/posts"
+import { getPublicPostBySlug, getPreviewPostBySlug, getAllPosts, postCache } from "../../server/apis/posts"
 import { getSiteSettings } from "../../server/apis/site-settings"
 import { Heading, Spacer } from "@chakra-ui/react"
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import mdxComponents from "../../components/mdx-components"
 import { getLayout } from "../../layouts/blog-layout"
-import { TTransformPost } from "../../utils/transform-post"
+import { TPost } from "../../server/apis/fm/clients/Post"
 import { RoundedNextImage, BlobbedImage } from "../../components/next-image-styled";
 
 // BLOG pages are built into static pages during the build process
@@ -42,14 +41,14 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   //get the post data
   const slug = ctx.params?.slug as string
   const preview = ctx.preview ? true : false
-  let post: TTransformPost | undefined
+  let post: TPost | undefined
   if (preview) {
-    post = await getPostPreviewBySlug(slug) // preview isn't ready.
+    post = await getPreviewPostBySlug(slug) // preview isn't ready.
   } else {
     // if we aren't building so don't use the cache
     if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) post = await postCache.getBySlug(slug);
     if (!post) {
-      post = await getPostBySlug(slug)
+      post = await getPublicPostBySlug(slug)
     }
   }
 

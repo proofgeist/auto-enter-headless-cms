@@ -1,6 +1,7 @@
-import { TTransformPost } from '../../utils/transform-post';
+
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getAllPosts } from "../../server/apis/posts"
+import { TPost } from '../../server/apis/fm/clients/Post';
 
 
 
@@ -9,7 +10,7 @@ import { getAllPosts } from "../../server/apis/posts"
 // if the server is down, this data will stay in cache for 60 minutes
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<TTransformPost[]>
+  res: NextApiResponse<TPost[]>
 ) {
 
   const recentBlogs = await getAllPosts()

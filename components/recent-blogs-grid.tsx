@@ -6,7 +6,7 @@ import NextChakraLink from "./next-chakra-link";
 import { RoundedNextImage, BlobbedImage } from "./next-image-styled";
 
 
-
+import { TPost } from '../server/apis/fm/clients/Post'
 
 export default function RecentBlogsGrid() {
 
@@ -20,7 +20,7 @@ export default function RecentBlogsGrid() {
 
 
 
-  return <SimpleGrid columns={3} spacing={10}>
+  return <SimpleGrid columns={[1, 1, 2, 3, 3]} spacing={10}>
     {recentPosts.data.map((blog: any) => {
       return <BlogCard key={blog.Slug} {...blog} />
     })}
@@ -28,14 +28,13 @@ export default function RecentBlogsGrid() {
 
 }
 
-function BlogCard({ Slug, Title, FeatureImageUrl, Excerpt, Body }: any) {
-
+function BlogCard({ Slug, Title, FeatureImageUrl, Excerpt, Body }: TPost) {
 
   const truncatedBody = Body.substring(0, 300) + "... "
   const safeExcerpt = Excerpt || truncatedBody
   const href = `/blog/${Slug}`
 
-  return <Box height='100px'>
+  return <Box >
     <NextChakraLink href={href}>
       <BlobbedImage width={1200} height={630} src={FeatureImageUrl}></BlobbedImage>
     </NextChakraLink >

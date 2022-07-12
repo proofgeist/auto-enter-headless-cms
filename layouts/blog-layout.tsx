@@ -4,15 +4,15 @@ import { ReactNode, ReactElement } from "react";
 import { TSiteSettings } from "../server/apis/fm/clients/SiteSettings";
 import NavBar from '../components/nav-bar'
 import NextChakraLink from "../components/next-chakra-link";
-import { TTransformPost } from "../utils/transform-post";
 import { useRecentPosts } from "../utils/client-side-api";
 import PageTransition from "../components/page-transition";
+import { TPost } from "../server/apis/fm/clients/Post";
 
 type Props = {
   children: ReactNode;
   siteSettings: TSiteSettings;
   preview: boolean;
-  recentBlogs: TTransformPost[];
+  recentBlogs: TPost[];
 };
 
 export default function BlogLayout({ children, siteSettings, preview, recentBlogs }: Props) {

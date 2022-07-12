@@ -1,8 +1,6 @@
 import {
   useQuery,
 } from 'react-query'
-import { TPosts as TPost } from '../server/apis/fm/clients/Posts';
-import { transformPost } from './transform-post';
 
 
 export const useRecentPosts = () => {

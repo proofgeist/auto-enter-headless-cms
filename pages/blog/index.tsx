@@ -25,7 +25,7 @@ const BlogsIndexPage = () => {
   return (
     <div >
       <Heading as="h1" size={"2xl"}>Recent Blog Posts</Heading>
-      <Spacer h={4} />
+      <Spacer h={12} />
       <RecentBlogsGrid />
     </div>
   )

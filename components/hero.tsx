@@ -14,7 +14,7 @@ import { BlobbedImage } from './next-image-styled';
 const content = {
   heroTextLine1: `Is Jam your Jam?`,
   heroTextLine2: `JamClub is for you.`,
-  heroTextLine3: `Weather you like it on toast with butter, or just with `,
+  heroTextLine3: `Jam is the source of all true joy. You know this. That is why you never have less that 6 jars in the house. That's why you you spend hours scouring the internet for the perfect jar. Join now to get a new jar every month.`,
   image: `/api/fm-file/685F9158-AFB2-45EC-9C04-89AF9F90DC81/jamsandjellies.png`
 }
 
@@ -44,22 +44,23 @@ export default function CallToActionWithVideo() {
             fontWeight={600}
             fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
             <Text
+              color="brand.800"
               as={'span'}
               position={'relative'}
               _after={{
                 content: "''",
                 width: 'full',
-                height: '30%',
+                height: '20%',
                 position: 'absolute',
                 bottom: 1,
                 left: 0,
-                bg: 'brand.400',
+                bg: 'brand.200',
                 zIndex: -1,
               }}>
               {heroTextLine1}
             </Text>
             <br />
-            <Text as={'span'} color={'brand.400'}>
+            <Text fontSize={"5xl"} size={"sm"} as={'p'} color={'brand.500'}>
               {heroTextLine2}
             </Text>
           </Heading>
@@ -70,6 +71,10 @@ export default function CallToActionWithVideo() {
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}>
             <Button
+              onClick={() => {
+
+                window.location.href = '/pricing'
+              }}
               rounded={'full'}
               size={'lg'}
               fontWeight={'normal'}
@@ -77,16 +82,9 @@ export default function CallToActionWithVideo() {
               colorScheme={'brand'}
               bg={'brand.400'}
               _hover={{ bg: 'brand.500' }}>
-              Get started
+              Join now
             </Button>
-            <Button
-              rounded={'full'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}>
-              How It Works
-            </Button>
+
           </Stack>
         </Stack>
         <BlobbedImage priority={true} src={image}></BlobbedImage>
