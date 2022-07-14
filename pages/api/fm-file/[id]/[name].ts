@@ -14,6 +14,7 @@ export default async function handler(
   const id = req.query?.id as string
   const fileRecord = await getFileById(id)
   const { Container, FileName } = fileRecord
+  console.log('serving file', FileName)
 
   const mimeType = mime.lookup(FileName)
 

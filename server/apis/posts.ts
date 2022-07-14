@@ -28,7 +28,7 @@ export async function getAllPosts() {
     return post.fieldData
   })
 
-  await redisCache.set('all-posts', posts, 30);
+  await redisCache.set('all-posts', posts, 60 * 5);
 
   return posts
 }
@@ -54,8 +54,6 @@ const getACachedPost = async (Slug: string) => {
   const post = Posts.find(post => post.Slug === Slug)
   return post
 }
-
-
 
 
 export const postCache = {

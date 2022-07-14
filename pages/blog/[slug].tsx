@@ -59,7 +59,7 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   if (!post) {
     return {
       props: {},
-      notFound: true
+      notFound: true,
     }
   }
 
@@ -104,6 +104,7 @@ export default function BlogPage({
 
   if (!siteSettings) return null // nothing to render yet
 
+  console.log('rending blog page', Title)
 
   return (
     < >
