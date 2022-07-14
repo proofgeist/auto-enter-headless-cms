@@ -83,7 +83,7 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   // when new blogs are added
   return {
     props: { preview, post, siteSettings, mdxSource, recentBlogs },
-    revalidate: 60 * 30 // 30 minutes
+    revalidate: 30 // 30 seconds
   }
 
 }
