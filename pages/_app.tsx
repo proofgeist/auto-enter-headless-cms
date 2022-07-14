@@ -4,10 +4,10 @@ import { NextPage } from "next";
 import { ChakraProvider, Box, Container } from '@chakra-ui/react'
 import { ReactElement, ReactNode } from "react";
 import {
-
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { theme } from "../theme"
 
@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <Container maxWidth={"1280px"}>
           {getLayout(<Component {...pageProps} />, pageProps)}
         </Container>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ChakraProvider >
   )

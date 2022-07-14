@@ -1,7 +1,7 @@
 import { client as Post, TPost } from "../apis/fm/clients/Post";
 import { promises as fs } from 'fs'
-
 import path from 'path'
+
 
 
 
@@ -14,8 +14,6 @@ export async function getPreviewPostBySlug(slug: string) {
   const post = await Post.findFirst({ query: { Slug: slug, Type: "draft" } });
   return post.data.fieldData;
 }
-
-
 
 
 export async function getAllPosts() {
