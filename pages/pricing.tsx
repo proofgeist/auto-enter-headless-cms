@@ -5,7 +5,7 @@ import { getSiteSettings } from "../server/apis/site-settings";
 import PricingTable from "../components/pricing-table";
 import { RoundedNextImage } from "../components/next-image-styled";
 import pricingimage from "../public/pricing-page.png";
-import { Heading, VStack, Text } from "@chakra-ui/react";
+import { Heading, VStack, Text, Spacer } from "@chakra-ui/react";
 
 export const getStaticProps = async (ctx: GetStaticPropsContext) => {
 
@@ -35,6 +35,7 @@ const PricingPage = () => {
 
       </VStack>
       <RoundedNextImage width={1280} height={600} src={pricingimage} />
+      <Spacer height={20} />
     </div>
   )
 }

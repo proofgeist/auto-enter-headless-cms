@@ -1,9 +1,8 @@
 import { GetStaticPropsContext } from "next"
-import type { NextPage } from 'next'
 import { getLayout } from "../layouts/main-layout";
 import { getSiteSettings } from "../server/apis/site-settings";
 import Hero from "../components/hero";
-import { Heading, SimpleGrid, VStack } from "@chakra-ui/react";
+import { Heading, SimpleGrid, VStack, Spacer } from "@chakra-ui/react";
 import SimpleCard from "../components/simple-card";
 
 export const getStaticProps = async (ctx: GetStaticPropsContext) => {
@@ -41,14 +40,13 @@ const winners = [
 ]
 
 
-
 const HomePage = () => {
   return (
     <div >
       <Hero />
       <VStack spacing={2} textAlign="center">
         <Heading as="h1" fontSize="4xl">
-          Recent Jam of the Month winners
+          Recent Jam of the Month Winners
         </Heading>
 
       </VStack>
@@ -57,11 +55,8 @@ const HomePage = () => {
         {winners.map((winner, index) => {
           return <SimpleCard key={winner.month} winner={winner} />
         })}
-
-
-
-
       </SimpleGrid>
+      <Spacer height={20} />
     </div>
   )
 }

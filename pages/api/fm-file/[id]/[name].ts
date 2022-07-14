@@ -17,7 +17,9 @@ export default async function handler(
 
   const mimeType = mime.lookup(FileName)
 
+  console.log(Container)
   const buffer = await fetchContainerAsBuffer(Container)
+
   if (mimeType) {
     res.setHeader('Content-Type', mimeType)
   }
