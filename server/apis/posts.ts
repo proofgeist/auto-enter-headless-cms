@@ -6,7 +6,12 @@ import { redisCache } from "../../utils/upstash";
 
 
 export async function getPublicPostBySlug(slug: string) {
+  const cachedPost = await redisCache.get(slug)
+  if (cachedPost) {
+    return cachedPost
+  }
   const post = await Post.findFirst({ query: { Slug: slug, Type: "public" } });
+  redisCache.set(slug, post.data.fieldData, 10)
   return post.data.fieldData;
 }
 
