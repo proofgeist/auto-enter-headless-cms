@@ -16,7 +16,7 @@ export default async function handler(
   const recentBlogs = await getAllPosts()
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=3600'
+    'public, s-maxage=900, stale-while-revalidate=3600'
   )
   res.status(200).json(recentBlogs)
 }
