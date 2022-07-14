@@ -1,7 +1,7 @@
 import { client as Post, TPost } from "../apis/fm/clients/Post";
 import { promises as fs } from 'fs'
 import path from 'path'
-
+import { redisCache } from "../../utils/upstash";
 
 
 
@@ -17,16 +17,26 @@ export async function getPreviewPostBySlug(slug: string) {
 
 
 export async function getAllPosts() {
+
+  const cachedValue = await redisCache.get('all-posts') as TPost[] | undefined;
+  if (cachedValue) {
+    return cachedValue
+  }
+
   const result = await Post.find({ query: { Type: "public" }, sort: [{ fieldName: "CreationTimestamp", sortOrder: "descend" }] });
   const posts = result.data.map(post => {
     return post.fieldData
   })
 
+  await redisCache.set('all-posts', posts, 30);
+
   return posts
 }
 
 
-
+// here we are going to use a different cache method
+// these are only used at build time.
+// they don't run after the site has been built and deployed
 const getAllCachedPosts = async () => {
   try {
     const data = await fs.readFile(path.join(process.cwd(), 'posts.db'))
@@ -37,8 +47,6 @@ const getAllCachedPosts = async () => {
   }
 
 }
-
-
 
 const getACachedPost = async (Slug: string) => {
   const Posts = await getAllCachedPosts()

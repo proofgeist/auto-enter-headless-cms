@@ -12,6 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     redisCache.del('site-settings')
+    redisCache.del('all-posts')
     return res.json({ 'cached-cleared': true })
   } catch (err) {
 
