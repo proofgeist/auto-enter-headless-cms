@@ -51,6 +51,7 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
     // if we aren't building so don't use the cache
     if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) post = await postCache.getBySlug(slug);
     if (!post) {
+      console.log('building page for slug: ' + slug)
       post = await getPublicPostBySlug(slug)
     }
   }
