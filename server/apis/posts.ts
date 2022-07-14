@@ -6,6 +6,7 @@ import { redisCache } from "../../utils/upstash";
 
 
 export async function getPublicPostBySlug(slug: string) {
+  console.log('getPublicPostBySlug', slug)
   const cachedPost = await redisCache.get(slug) as TPost | undefined
   if (cachedPost) {
     return cachedPost

@@ -11,6 +11,7 @@ import { TPost } from "../../server/apis/fm/clients/Post"
 import { AvatarNextImage, BlobbedImage, RoundedNextImage } from "../../components/next-image-styled";
 import { MDXRemoteSerializeResult } from "next-mdx-remote"
 import { TSiteSettings } from "../../server/apis/fm/clients/SiteSettings"
+import remarkUnwrapImages from 'remark-unwrap-images'
 
 
 // BLOG pages are built into static pages during the build process
@@ -51,7 +52,7 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
     // if we aren't building so don't use the cache
     if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) post = await postCache.getBySlug(slug);
     if (!post) {
-      console.log('building page for slug: ' + slug)
+      console.log('building page')
       post = await getPublicPostBySlug(slug)
     }
   }
@@ -76,7 +77,13 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   const siteSettings = await getSiteSettings()
 
   // compile the MDX source
-  const mdxSource = await serialize(post.Body)
+  const mdxSource = await serialize(post.Body, {
+    mdxOptions: {
+      remarkPlugins: [remarkUnwrapImages],
+      rehypePlugins: [],
+      format: 'mdx'
+    },
+  })
 
   // we are doing on demand revalidation also, but this will make the pages stale after 30 minutes
   // the next vistor after that will trigger a rebuild.
@@ -112,7 +119,7 @@ export default function BlogPage({
       <Heading mb={0} as="h1" size="2xl" >{Title}</Heading>
       <Attribution AuthorAvatarUrl={AuthorAvatarUrl} AuthorName={AuthorName} ModificationTimestamp={ModificationTimestamp} />
       <Spacer height={8}></Spacer>
-      <BlobbedImage priority={true} width={1280} height={630} src={FeatureImageUrl} />
+      <BlobbedImage src={FeatureImageUrl} />
       <Spacer height={6}></Spacer>
       <MDXRemote {...mdxSource} components={mdxComponents} />
     </>

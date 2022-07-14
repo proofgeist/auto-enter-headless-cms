@@ -1,8 +1,13 @@
 import { Redis } from '@upstash/redis'
 
+
+
+const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ""
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ""
+
 const redis = new Redis({
-  url: 'https://usw1-neat-wasp-33307.upstash.io',
-  token: 'AYIbASQgODY4MzMxOGYtNTQ2Ni00ZmY2LTk1ODEtYTc2ZTk4MjYzY2Q5NWJmMTYxOWRkMTkwNDY5MWEwYzE5ZGM4MTIwY2E1OGY=',
+  url: UPSTASH_URL,
+  token: UPSTASH_TOKEN,
 })
 
 export default redis

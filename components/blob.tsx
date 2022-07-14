@@ -1,68 +1,9 @@
 
-import { Box, Icon, IconProps, Flex, useColorModeValue } from "@chakra-ui/react";
-import NextImage, { ImageProps } from "next/future/image";
-import dynamic from 'next/dynamic'
 
-
-const LazyBlob = dynamic(() => import('./blob'), { ssr: false })
-
-
-
-export function AvatarNextImage({ width = 40, height = 40, src = "", priority = false }: ImageProps) {
-  if (src === "") {
-    return null
-  }
-  return <Box
-    width={'40px'}
-    height={'40px'}
-    position={'relative'}
-    rounded={'full'}
-    overflow={'hidden'}>
-    <NextImage priority={priority} width={40} height={40} src={src}></NextImage>
-  </Box>
-}
-
-
-
-export function RoundedNextImage({ width = 1200, height = 630, src = "", priority = false }: ImageProps) {
-  if (src === "") {
-    return null
-  }
-  return <Box
-    position={'relative'}
-    rounded={'2xl'}
-    boxShadow={'xl'}
-    width={'full'}
-    overflow={'hidden'}>
-    <NextImage priority={priority} width={width} height={height} src={src}></NextImage>
-  </Box>
-}
-
+import { Icon, IconProps, } from "@chakra-ui/react";
 
 function getRandomNumberBetween(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-export function BlobbedImage({ width = 1200, height = 630, src = "", priority = false }) {
-
-
-  return <Flex
-    flex={1}
-    justify={'center'}
-    align={'center'}
-    position={'relative'}
-    w={'full'}>
-    <LazyBlob
-      w={'150%'}
-      h={'150%'}
-      position={'absolute'}
-      top={'-20%'}
-      left={0}
-      zIndex={-1}
-      color={useColorModeValue('brand.50', 'brand.400')}
-    />
-    <RoundedNextImage priority={priority} width={width} height={height} src={src}></RoundedNextImage>
-  </Flex>
 }
 
 
@@ -71,7 +12,7 @@ const Blob2PathData = "M61.8731295,420.100465 C16.0533349,378.152489 -6.69283201
 const Blob3PathData = "M61.8731295,420.657739 C16.0533349,378.709764 -6.69283201,276.208083 1.72625387,214.704917 C10.162346,153.069769 0.230959302,59.6823285 44.671875,18.4947741 C82.0234375,-16.1224134 181.791293,10.5178562 253.726563,41.4088366 C274.107947,50.1611629 297.472013,11.7747127 346.097656,1.07142737 C375.506073,-5.40183758 411.096835,19.6185565 442.210938,18.4947741 C478.527298,17.183096 514.016063,8.37411278 528.851563,18.4947741 C577.41344,51.6233056 571.817212,144.63698 575.782665,201.277845 C579.91418,260.28437 424.53125,324.592691 389.007812,368.828758 C369.09293,393.62805 377.398186,438.305676 320.164063,439.93015 C275.306055,441.203353 232.848689,422.524985 214.421875,400.033837 C189.213653,369.26553 102.721102,458.054368 61.8731295,420.657739 Z"
 
 const Blob = (props: IconProps) => {
-  const n = getRandomNumberBetween(1, 3)
+  const n = getRandomNumberBetween(1, 3);
   const pathData = n === 1 ? Blob1PathData : n === 2 ? Blob2PathData : Blob3PathData;
   return (
     <Icon
@@ -90,3 +31,4 @@ const Blob = (props: IconProps) => {
   );
 };
 
+export default Blob

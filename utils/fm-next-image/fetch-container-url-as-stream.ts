@@ -12,15 +12,15 @@ if (process.env.HANDLE_FMDAPI_COOKIE_SESSIONS) {
 }
 
 export async function fetchContainerAsBuffer(containerURL: string) {
-
   try {
     const response = await client.get(
       containerURL,
       {
-        responseType: 'arraybuffer',
+        responseType: 'stream',
       }
     );
-    return Buffer.from(response.data, 'utf8');
+    return response.data;
+
   } catch (error) {
     console.error(error)
     throw new Error('the proxy image fetched failed. see above log entry')

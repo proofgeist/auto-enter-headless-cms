@@ -32,6 +32,7 @@
     "react-icons": "^4.4.0",
     "react-query": "^3.39.1",
     "remark-slug": "^7.0.1",
+    "remark-unwrap-images": "^3.0.1",
     "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
