@@ -15,10 +15,10 @@ export const redisCache = {
   },
   set: (key: string, value: any, ex: number = 3600) => {
 
-    redis.set(key, value, { "ex": ex });
+    return redis.set(key, value, { "ex": ex });
   },
   del: (key: string) => {
 
-    redis.del(key);
+    return redis.del(key);
   }
 }
