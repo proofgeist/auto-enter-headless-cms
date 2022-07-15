@@ -7,6 +7,7 @@ require("dotenv").config({ path: ".env.local" });
 const config = {
   schemas: [
     { layout: "post_versions_web", schemaName: "Post" },
+    { layout: "post_versions_demo_web", schemaName: "DemoPost" },
     { layout: "files_web", schemaName: "Files" },
     { layout: "site_settings_web", schemaName: "SiteSettings" }
   ],

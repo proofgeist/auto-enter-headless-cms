@@ -7,22 +7,32 @@
 
 import { z } from "zod";
 import { DataApi } from "@proofgeist/fmdapi";
-export const ZSiteSettings = z.object({
-    "LogoFileID": z.string(),
-    "LogoSlug": z.string()
+export const ZDemoPost = z.object({
+    "Id": z.string(),
+    "CreationTimestamp": z.string(),
+    "ModificationTimestamp": z.string(),
+    "Slug": z.string(),
+    "Type": z.string(),
+    "Title": z.string(),
+    "Body": z.string(),
+    "PostId": z.string(),
+    "Excerpt": z.string(),
+    "AuthorId": z.string(),
+    "FeatureImageContainerDisplay": z.string(),
+    "AuthorName": z.string()
 });
-export type TSiteSettings = z.infer<typeof ZSiteSettings>;
+export type TDemoPost = z.infer<typeof ZDemoPost>;
 if (!process.env.FM_DATABASE)
     throw new Error("Missing env var: FM_DATABASE");
 if (!process.env.FM_SERVER)
     throw new Error("Missing env var: FM_SERVER");
 if (!process.env.OTTO_API_KEY)
     throw new Error("Missing env var: OTTO_API_KEY");
-export const client = DataApi<any, TSiteSettings>({
+export const client = DataApi<any, TDemoPost>({
     auth: { apiKey: process.env.OTTO_API_KEY },
     db: process.env.FM_DATABASE,
     server: process.env.FM_SERVER,
-    layout: "site_settings_web"
+    layout: "post_versions_demo_web"
 }, {
-    fieldData: ZSiteSettings
+    fieldData: ZDemoPost
 });
