@@ -13,9 +13,9 @@ username and password is admin and admin.
 
 You can turn off the need to have a authenticated cookie support on the url returned from the container with an admin api.
 
-Here are the docs on how to make that call.
+Here are the docs on how to make that call.  Swap "example.com" for your server
 
-https://(www.example.com)/fmi/admin/apidoc/#tag/Database-Server/operation/setAuthenticatedStream
+https://www.example.com/fmi/admin/apidoc/#tag/Database-Server/operation/setAuthenticatedStream]
 
 ### Using S3 With FileMaker
 
