@@ -13,7 +13,7 @@ username and password is admin and admin.
 
 You can turn off the need to have a authenticated cookie support on the url returned from the container with an admin api.
 
-Here are the docs on how to make that call.  Swap "example.com" for your server
+Here are the docs on how to make that call.  Swap "example.com" for your filemaker server url
 
 https://www.example.com/fmi/admin/apidoc/#tag/Database-Server/operation/setAuthenticatedStream]
 
